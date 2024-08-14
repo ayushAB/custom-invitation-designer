@@ -26,45 +26,11 @@
         selection: true, // Ensure selection is enabled
       });
   
-//        this.canvas.on('object:modified', this.onObjectModified);
-    //this.addCustomControls();
+        this.canvas.on('object:modified', this.onObjectModified);
         // Handle resizing of the window
         window.addEventListener('resize', this.onWindowResize);
       },
 
-      addCustomControls() {
-      fabric.Object.prototype.controls.customControl = new fabric.Control({
-        x: 0.5,
-        y: 0.5,
-        offsetY: 0,
-        cursorStyle: 'pointer',
-        render: function(ctx, left, top, styleOverride, fabricObject) {
-          ctx.save();
-          ctx.fillStyle = 'blue'; // Control handle color
-          ctx.fillRect(left - 10, top - 10, 20, 20); // Custom handle size and position
-          ctx.restore();
-        },
-        cornerSize: 10,
-        cornerStyle: 'circle',
-      });
-
-      fabric.Object.prototype.customControl = new fabric.Control({
-        x: 0.5,
-        y: 0.5,
-        offsetY: 20,
-        cursorStyle: 'pointer',
-        render: function(ctx, left, top, styleOverride, fabricObject) {
-          ctx.save();
-          ctx.fillStyle = 'blue'; // Rotation handle color
-          ctx.beginPath();
-          ctx.arc(left, top, 10, 0, Math.PI * 2, true);
-          ctx.fill();
-          ctx.restore();
-        },
-        cornerSize: 10,
-        cornerStyle: 'circle',
-      });
-    },
       handleImageUpload(event) {
         const file = event.target.files[0];
         const reader = new FileReader();
@@ -105,7 +71,7 @@
           lockScalingFlip: false,
         });
   
-        this.canvas.add(text);
+        this.canvas.add(markRaw(text));
         this.canvas.setActiveObject(text);
         this.canvas.renderAll();  // Ensure the canvas is updated
       },
